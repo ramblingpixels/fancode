@@ -1,38 +1,109 @@
-.App {
-  text-align: center;
+body {
+	margin: 0;
+	background-color: black;
+	font-family: Roboto, sans-serif;
+	scroll-behavior: smooth;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+	background-color: #1f1e1e;
+	padding: 20px 5%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header h1 {
+	color: red;
+	margin-top: 0;
+	padding: 0;
+	margin: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.current-year {
+	color: #fff;
 }
 
-.App-link {
-  color: #61dafb;
+li {
+	list-style-type: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.movie-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
+	margin: 5%;
+	justify-content: space-between;
+}
+
+.movie-card {
+	box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2),
+		0 6px 20px 0 rgba(255, 255, 255, 0.19);
+	text-align: center;
+	border-radius: 20px;
+	width: 300px;
+}
+
+.movie-card:hover {
+	transform: scale(1.1);
+	transition: transform 200ms ease-in-out;
+}
+
+img {
+	width: 250px;
+}
+
+h4 {
+	color: #fff;
+}
+
+.horizontal-carousel {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	margin: 20px 0;
+}
+
+.carousel-container {
+	display: flex;
+	transition: transform 0.5s ease;
+	margin: 0 30px;
+}
+
+.normal-button {
+	padding: 3px 20px;
+	margin: 0 10px;
+	background-color: #3f4145;
+	color: #fff;
+	border-radius: 10px;
+	transition: background-color 0.1s ease-in;
+}
+
+.normal-button:hover {
+	cursor: pointer;
+}
+
+.selected-button {
+	padding: 3px 20px;
+	margin: 0 10px;
+	background-color: red;
+	color: #fff;
+	border-radius: 10px;
+	transition: background-color 0.1s ease-in;
+}
+
+.scroll-button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #fff;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.left {
+	left: 0;
+}
+
+.right {
+	right: 0;
 }
