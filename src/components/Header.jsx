@@ -19,25 +19,46 @@ const Header = ({ genreList, filterMovies }) => {
 	const isAtEnd = currentIndex === 1;
 
 	const handleClick = (genreId) => {
-		setSelectedGenres((prevSelectedButtons) =>
-			prevSelectedButtons.includes(genreId)
+		setSelectedGenres((prevSelectedButtons) => {
+			const updatedSelectedGenres = prevSelectedButtons.includes(genreId)
 				? prevSelectedButtons.filter((id) => id !== genreId)
-				: [...prevSelectedButtons, genreId]
-		);
-		filterMovies(selectedGenres);
+				: [...prevSelectedButtons, genreId];
+
+			// Log the updated selected genres
+			console.log(updatedSelectedGenres);
+
+			// Call filterMovies with the updated selected genres
+			filterMovies(updatedSelectedGenres);
+
+			// Return the updated selected genres to be set in the state
+			return updatedSelectedGenres;
+		});
 	};
 
 	const handleAllClick = () => {
 		setSelectedGenres([]);
+		filterMovies(selectedGenres);
 	};
 
 	return (
 		<div className="header">
-			<h1>MOVIEFIX</h1>
+			<div className="search-div">
+				<h1>MOVIEFIX</h1>
+				<form action="">
+					<input
+						className="search-input"
+						type="text"
+						name="search"
+						placeholder="Search Movies..."
+					/>
+					<button className="search-button">Search</button>
+				</form>
+			</div>
+
 			<div className="horizontal-carousel">
 				<div
 					className="carousel-container"
-					style={{ transform: `translateX(${-currentIndex * 100}%)` }}
+					style={{ transform: `translateX(${-currentIndex * 90}%)` }}
 				>
 					<button
 						onClick={handleAllClick}

@@ -5,6 +5,7 @@ body {
 	scroll-behavior: smooth;
 }
 
+/* Header */
 .header {
 	background-color: #1f1e1e;
 	padding: 20px 5%;
@@ -17,41 +18,26 @@ body {
 	margin: 0;
 }
 
-.current-year {
-	color: #fff;
-}
-
-li {
-	list-style-type: none;
-}
-
-.movie-list {
+.search-div {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 30px;
-	margin: 5%;
 	justify-content: space-between;
+	align-items: center;
 }
 
-.movie-card {
-	box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2),
-		0 6px 20px 0 rgba(255, 255, 255, 0.19);
-	text-align: center;
-	border-radius: 20px;
-	width: 300px;
+.search-input {
+	padding: 10px 50px 10px 20px;
+	background-color: #3f4145;
+	border: none;
+	border-radius: 5px;
+	margin-right: 5px;
 }
 
-.movie-card:hover {
-	transform: scale(1.1);
-	transition: transform 200ms ease-in-out;
-}
-
-img {
-	width: 250px;
-}
-
-h4 {
+.search-button {
+	background-color: #3f4145;
+	border: none;
+	border-radius: 5px;
 	color: #fff;
+	padding: 10px;
 }
 
 .horizontal-carousel {
@@ -89,6 +75,10 @@ h4 {
 	transition: background-color 0.1s ease-in;
 }
 
+.selected-button:hover {
+	cursor: pointer;
+}
+
 .scroll-button {
 	position: absolute;
 	top: 50%;
@@ -98,6 +88,7 @@ h4 {
 	padding: 10px;
 	cursor: pointer;
 	font-size: 20px;
+	background-color: #1f1e1e;
 }
 
 .left {
@@ -105,5 +96,59 @@ h4 {
 }
 
 .right {
-	right: 0;
+	right: -10px;
+}
+
+/* Movie Card */
+.current-year {
+	color: #fff;
+}
+
+li {
+	list-style-type: none;
+}
+
+.movie-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
+	margin: 5%;
+}
+
+.movie-card {
+	box-shadow: 8px 4px 8px 0 rgba(255, 255, 255, 0.2),
+		0 6px 8px 0 rgba(255, 255, 255, 0.19);
+	text-align: center;
+	border-radius: 20px;
+	width: 300px;
+}
+
+.movie-card p {
+	color: #fff;
+}
+
+.movie-card:hover {
+	transform: scale(1.1);
+	transition: transform 100ms ease-in-out;
+}
+
+img {
+	width: 250px;
+}
+
+h4 {
+	color: #fff;
+}
+
+.movie-details {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+.genre-list {
+	display: inline;
+	list-style-type: none;
+	color: #fff;
+	padding-left: 0;
 }
