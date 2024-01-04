@@ -1,55 +1,69 @@
 import React, { useState } from "react";
 
-const Header = ({ genreList, filterMovies }) => {
+const Header = ({ genreList, getSelectedGenres, getSearchedMovieName }) => {
 	// const genreList = ["All, Action, Comedy, Horror"];
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [selectedGenres, setSelectedGenres] = useState([]);
+	const [input, setInput] = useState("");
 
+	//genre carousel
 	const nextGenre = () => {
 		setCurrentIndex((prevIndex) => (prevIndex + 1) % genreList.length);
 	};
-
 	const prevGenre = () => {
 		setCurrentIndex(
 			(prevIndex) => (prevIndex - 1 + genreList.length) % genreList.length
 		);
 	};
 
+	//determine start and beginning of genre carousel
 	const isAtBeginning = currentIndex === 0;
 	const isAtEnd = currentIndex === 1;
 
+	//user clicks one or more genres
 	const handleClick = (genreId) => {
-		setSelectedGenres((prevSelectedButtons) => {
-			const updatedSelectedGenres = prevSelectedButtons.includes(genreId)
-				? prevSelectedButtons.filter((id) => id !== genreId)
-				: [...prevSelectedButtons, genreId];
+		setSelectedGenres((prevSelectedGenres) => {
+			const updatedSelectedGenres = prevSelectedGenres.includes(genreId)
+				? prevSelectedGenres.filter((id) => id !== genreId)
+				: [...prevSelectedGenres, genreId];
 
-			// Log the updated selected genres
-			console.log(updatedSelectedGenres);
+			getSelectedGenres(updatedSelectedGenres);
 
-			// Call filterMovies with the updated selected genres
-			filterMovies(updatedSelectedGenres);
-
-			// Return the updated selected genres to be set in the state
 			return updatedSelectedGenres;
 		});
 	};
 
+	//user clicks All
 	const handleAllClick = () => {
-		setSelectedGenres([]);
-		filterMovies(selectedGenres);
+		setSelectedGenres(() => {
+			const updatedSelectedGenres = [];
+			getSelectedGenres(updatedSelectedGenres);
+			return updatedSelectedGenres;
+		});
 	};
 
+	//user search
+	const handleChange = (event) => {
+		setInput(event.target.value);
+	};
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		getSearchedMovieName(input);
+		setInput("");
+	};
+
+	//DOM
 	return (
 		<div className="header">
 			<div className="search-div">
 				<h1>MOVIEFIX</h1>
-				<form action="">
+				<form action="" onSubmit={handleSubmit}>
 					<input
 						className="search-input"
 						type="text"
 						name="search"
 						placeholder="Search Movies..."
+						onChange={handleChange}
 					/>
 					<button className="search-button">Search</button>
 				</form>

@@ -30,6 +30,7 @@ body {
 	border: none;
 	border-radius: 5px;
 	margin-right: 5px;
+	color: #fff;
 }
 
 .search-button {
@@ -38,6 +39,7 @@ body {
 	border-radius: 5px;
 	color: #fff;
 	padding: 10px;
+	cursor: pointer;
 }
 
 .horizontal-carousel {
@@ -60,9 +62,6 @@ body {
 	color: #fff;
 	border-radius: 10px;
 	transition: background-color 0.1s ease-in;
-}
-
-.normal-button:hover {
 	cursor: pointer;
 }
 
@@ -73,9 +72,6 @@ body {
 	color: #fff;
 	border-radius: 10px;
 	transition: background-color 0.1s ease-in;
-}
-
-.selected-button:hover {
 	cursor: pointer;
 }
 
@@ -100,7 +96,8 @@ body {
 }
 
 /* Movie Card */
-.current-year {
+
+.year-header {
 	color: #fff;
 }
 
