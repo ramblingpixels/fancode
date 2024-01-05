@@ -108,23 +108,21 @@ function App() {
 		}
 
 		//Checking the direction of scroll (less means going to top)
-		if (scrollPosition === 0 && currentTimeOfScroll - prevTimeOfScroll > 1000) {
+		if (scrollPosition === 0) {
 			setCurrentMinYear((prevYear) =>
 				oldestPossibleYear < prevYear ? prevYear - 1 : oldestPossibleYear
 			);
-
-			prevTimeOfScroll = currentTimeOfScroll;
 		}
 	};
 
 	//Scroll event listener
 	useEffect(() => {
 		// Add a scroll event listener
-		window.addEventListener("wheel", handleScroll);
+		window.addEventListener("scroll", handleScroll);
 
 		// Remove the event listener when the component is unmounted
 		return () => {
-			window.removeEventListener("wheel", handleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
 
