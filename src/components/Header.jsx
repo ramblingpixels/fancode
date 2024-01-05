@@ -72,7 +72,7 @@ const Header = ({ genreList, getSelectedGenres, getSearchedMovieName }) => {
 			<div className="horizontal-carousel">
 				<div
 					className="carousel-container"
-					style={{ transform: `translateX(${-currentIndex * 90}%)` }}
+					style={{ transform: `translateX(${-currentIndex * 100}%)` }}
 				>
 					<button
 						onClick={handleAllClick}

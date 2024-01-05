@@ -39,6 +39,21 @@ function App() {
 			const response = await axios.get(
 				`https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d&sort_by=popularity.desc&primary_release_year=${newScrolledYear}&page=1&vote_count.gte=100&append_to_response=credits`
 			);
+
+			for (const movie of response.data.results) {
+				const castResponse = await axios.get(
+					`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=2dca580c2a14b55200e784d157207b4d`
+				);
+				const director = castResponse.data.crew.filter(
+					(castMember) => castMember.job === "Director"
+				)[0].name;
+				const cast = castResponse.data.cast
+					.slice(0, 2)
+					.map((castMember) => castMember.name);
+				movie.director = director;
+				movie.cast = cast;
+			}
+
 			setMovies(
 				(map) => new Map(map.set(newScrolledYear, [...response.data.results]))
 			);
@@ -103,16 +118,56 @@ function App() {
 		};
 	}, []);
 
-	// set selected genres to global variable
+	// selected genres list
 	const getSelectedGenres = (selectedGenres) => {
 		setFilters(selectedGenres);
 	};
 
 	//get searched movie name
-
 	const getSearchedMovieName = (input) => {
 		setSearchedMovieName(input);
 	};
+
+	let sortedMovies = [];
+
+	//filter movies based on selected genre(s) and user search
+	for (let i = 2023; i >= 1900; i--) {
+		if (movies.has(i)) {
+			const currentYearMovies = movies.get(i);
+
+			// if not all
+			if (filters.length !== 0 || searchedMovieName.trim() !== 0) {
+				const uniqueMovieIds = new Set();
+				const filteredMovies = currentYearMovies.filter((currentYearMovie) => {
+					//check if all selected genres are present in the movie
+					const hasSelectedGenres = filters.every((genreId) =>
+						currentYearMovie.genre_ids.includes(genreId)
+					);
+
+					const hasSearchedMovieName =
+						searchedMovieName.trim() === "" ||
+						currentYearMovie.title
+							.toLowerCase()
+							.includes(searchedMovieName.toLowerCase());
+
+					// If the movie has selected genres and has been searched for and hasn't been added before
+					if (
+						hasSelectedGenres &&
+						hasSearchedMovieName &&
+						!uniqueMovieIds.has(currentYearMovie.id)
+					) {
+						uniqueMovieIds.add(currentYearMovie.id);
+						return true;
+					}
+					return false;
+				});
+
+				sortedMovies = [...filteredMovies, ...sortedMovies];
+			} else {
+				sortedMovies = [...currentYearMovies, ...sortedMovies];
+			}
+		}
+	}
 
 	return (
 		<div className="App">
@@ -125,8 +180,7 @@ function App() {
 				<MovieCard
 					movies={movies}
 					genreList={genreList}
-					filters={filters}
-					searchedMovieName={searchedMovieName}
+					sortedMovies={sortedMovies}
 				/>
 			</div>
 		</div>
