@@ -1,7 +1,7 @@
 # Fancode Movie App - Moviefix
 
 Description:
-The Movie Explorer React App provides an immersive experience for movie enthusiasts, seamlessly fetching and displaying a curated list of movies from a dynamic API. Users can effortlessly navigate through the cinematic world by scrolling up or down to explore movies from the previous or next year.
+The Moviefix App provides an immersive experience for movie enthusiasts, seamlessly fetching and displaying a curated list of movies from a dynamic API. Users can effortlessly navigate through the cinematic world by scrolling up or down to explore movies from the previous or next year.
 
 Key Features:
 
@@ -52,8 +52,6 @@ Start the server
 - Search bar
 - Responsiveness
 - All movie info specified in assignment requirements
-- Smooth scrolling when user scrolls down
+- Smooth scrolling when user scrolls up or down (slight jitter when scrolling upwards due to fetch delay)
 
-### Not Implemented
 
-- Smooth scrolling when user scrolls up due to fetch delay
