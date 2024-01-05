@@ -1,45 +1,46 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import axios, { all } from "axios";
+import axios from "axios";
 
-import MovieCard from "./components/MovieCard";
+import MovieList from "./components/MovieList";
 import Header from "./components/Header";
-import { GENRE_API_URL } from "./API";
+import { GENRE_API_URL } from "./GENRE_API";
 
 function App() {
-	//
-	const latestYear = 2023;
-	const oldestYear = 1910;
+	//store oldest and latest year in api so that user cannot scroll past that
+	const latestPossibleYear = 2023;
+	const oldestPossibleYear = 1910;
 
-	//
+	//keep track of current min and max year that user sees
 	const [currentMinYear, setCurrentMinYear] = useState(2012);
 	const [currentMaxYear, setCurrentMaxYear] = useState(2012);
 
-	//
+	//keep track of current newest scrolled year
 	let newScrolledYear = 2012;
 
-	//
+	//map for storing fetched movies
 	const [movies, setMovies] = useState(new Map());
 
-	//
+	//array for storing fetched genres
 	const [genreList, setGenreList] = useState([]);
 
-	//
+	//array to set genres selected by user
 	const [filters, setFilters] = useState([]);
 
-	//
-	const [page, setPage] = useState(1);
-
-	//
+	//store searched movie name
 	const [searchedMovieName, setSearchedMovieName] = useState("");
+
+	let prevTimeOfScroll = new Date();
 
 	//Fetching movies
 	const fetchMovies = async () => {
 		try {
+			//fetching movies
 			const response = await axios.get(
-				`https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d&sort_by=popularity.desc&primary_release_year=${newScrolledYear}&page=1&vote_count.gte=100&append_to_response=credits`
+				`https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d&sort_by=popularity.desc&primary_release_year=${newScrolledYear}&vote_count.gte=100&append_to_response=credits`
 			);
 
+			//fething cast and director of movies
 			for (const movie of response.data.results) {
 				const castResponse = await axios.get(
 					`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=2dca580c2a14b55200e784d157207b4d`
@@ -54,6 +55,7 @@ function App() {
 				movie.cast = cast;
 			}
 
+			//setting fetching movies into map
 			setMovies(
 				(map) => new Map(map.set(newScrolledYear, [...response.data.results]))
 			);
@@ -74,6 +76,7 @@ function App() {
 			});
 	}, []);
 
+	//fetch movies whenever current min or max year changes
 	useEffect(() => {
 		newScrolledYear = currentMinYear;
 		fetchMovies();
@@ -85,36 +88,43 @@ function App() {
 	}, [currentMaxYear]);
 
 	// Function to handle scroll events
-	const handleScroll = () => {
+	const handleScroll = async () => {
 		const scrollPosition = window.scrollY;
 		const windowHeight = window.innerHeight;
 		const documentHeight = document.documentElement.scrollHeight;
 
+		const currentTimeOfScroll = new Date();
+
 		// Check if the user has scrolled to the bottom of the page
-		if (scrollPosition + windowHeight >= documentHeight - 100) {
+		if (
+			scrollPosition + windowHeight >= documentHeight - 200 &&
+			currentTimeOfScroll - prevTimeOfScroll > 1000
+		) {
 			setCurrentMaxYear((prevYear) =>
-				prevYear < latestYear ? prevYear + 1 : latestYear
+				prevYear < latestPossibleYear ? prevYear + 1 : latestPossibleYear
 			);
-			setPage(1);
+
+			prevTimeOfScroll = currentTimeOfScroll;
 		}
 
-		// Check if the user has scrolled to the top of the page
-		if (scrollPosition === 0) {
+		//Checking the direction of scroll (less means going to top)
+		if (scrollPosition === 0 && currentTimeOfScroll - prevTimeOfScroll > 1000) {
 			setCurrentMinYear((prevYear) =>
-				oldestYear < prevYear ? prevYear - 1 : oldestYear
+				oldestPossibleYear < prevYear ? prevYear - 1 : oldestPossibleYear
 			);
-			setPage(1);
+
+			prevTimeOfScroll = currentTimeOfScroll;
 		}
 	};
 
 	//Scroll event listener
 	useEffect(() => {
 		// Add a scroll event listener
-		window.addEventListener("scroll", handleScroll);
+		window.addEventListener("wheel", handleScroll);
 
 		// Remove the event listener when the component is unmounted
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("wheel", handleScroll);
 		};
 	}, []);
 
@@ -144,6 +154,7 @@ function App() {
 						currentYearMovie.genre_ids.includes(genreId)
 					);
 
+					//check if current movie includes the term searched by user
 					const hasSearchedMovieName =
 						searchedMovieName.trim() === "" ||
 						currentYearMovie.title
@@ -177,7 +188,7 @@ function App() {
 				getSearchedMovieName={getSearchedMovieName}
 			/>
 			<div id="movieContainer" className="movie-list">
-				<MovieCard
+				<MovieList
 					movies={movies}
 					genreList={genreList}
 					sortedMovies={sortedMovies}

@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Fancode Movie App - Moviefix
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Description:
+The Movie Explorer React App provides an immersive experience for movie enthusiasts, seamlessly fetching and displaying a curated list of movies from a dynamic API. Users can effortlessly navigate through the cinematic world by scrolling up or down to explore movies from the previous or next year.
 
-## Available Scripts
+Key Features:
 
-In the project directory, you can run:
+1. Intuitive Scrolling:
 
-### `npm start`
+User-friendly scrolling enables a smooth transition between movie collections of the previous and next years, enhancing the overall browsing experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. Genre Filtering:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Empowering users to tailor their movie exploration, the app includes a genre filtering feature. Users can select their preferred genres, ensuring a personalized and enjoyable movie discovery.
 
-### `npm test`
+3. Search Functionality:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The app offers a powerful search functionality, allowing users to find specific movies effortlessly. With real-time results, users can quickly locate their favorite films or discover new ones.
 
-### `npm run build`
+## Run Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clone the project or download zip
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+  git clone https://github.com/ramblingpixels/fancode.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Go to the project directory
 
-### `npm run eject`
+```bash
+  cd fancode (or cd fancode-master)
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Install dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+  npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Start the server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+  npm run start
+```
 
-## Learn More
+## Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Implemented
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Fetch based on user scroll
+- Filtering based on one or more genres selected by user
+- Search bar
+- Responsiveness
+- All movie info specified in assignment requirements
+- Smooth scrolling when user scrolls down
 
-### Code Splitting
+### Not Implemented
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Smooth scrolling when user scrolls up due to fetch delay

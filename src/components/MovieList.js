@@ -1,11 +1,14 @@
 import React from "react";
 
-const MovieCard = ({ genreList, sortedMovies }) => {
+const MovieList = ({ genreList, sortedMovies }) => {
 	let currentYear = null;
+
+	//displaying list of all the movies
 
 	return (
 		<>
 			{sortedMovies.map((movie) => {
+				//dispalying year only when year changes
 				const releaseYear = new Date(movie.release_date).getFullYear();
 
 				const yearHeader =
@@ -65,4 +68,4 @@ const MovieCard = ({ genreList, sortedMovies }) => {
 	);
 };
 
-export default MovieCard;
+export default MovieList;

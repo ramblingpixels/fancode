@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 
 const Header = ({ genreList, getSelectedGenres, getSearchedMovieName }) => {
-	// const genreList = ["All, Action, Comedy, Horror"];
+	//setting index for genres
 	const [currentIndex, setCurrentIndex] = useState(0);
+
+	//array to store selected genres
 	const [selectedGenres, setSelectedGenres] = useState([]);
+
+	//variable to store movie searched for by user
 	const [input, setInput] = useState("");
 
 	//genre carousel
