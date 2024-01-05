@@ -108,7 +108,7 @@ function App() {
 		}
 
 		//Checking the direction of scroll (less means going to top)
-		if (scrollPosition === 0) {
+		if (scrollPosition === 0 && currentTimeOfScroll - prevTimeOfScroll > 2000) {
 			setCurrentMinYear((prevYear) =>
 				oldestPossibleYear < prevYear ? prevYear - 1 : oldestPossibleYear
 			);
